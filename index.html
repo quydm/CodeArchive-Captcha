@@ -1,0 +1,56 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Captcha</title>
+		<!--
+			Author: Minh Quy
+			Date created: 18/02/2011- 0:23
+			Mất ngủ và nghĩ ra code nên tỉnh dậy để làm
+		-->
+		
+		<script language="JavaScript" >
+			function captcha(frm){
+				var alphabet=new Array(62);
+				alphabet[0]="a";alphabet[1]="b";alphabet[2]="c";alphabet[3]="d";alphabet[4]="e";alphabet[5]="f";alphabet[6]="g";alphabet[7]="h";alphabet[8]="i";
+				alphabet[9]="j";alphabet[10]="k";alphabet[11]="l";alphabet[12]="m";alphabet[13]="n";alphabet[14]="o";alphabet[15]="p";alphabet[16]="q";alphabet[17]="r";
+				alphabet[18]="s";alphabet[19]="t";alphabet[20]="u";alphabet[21]="v";alphabet[22]="w";alphabet[23]="x";alphabet[24]="y";alphabet[25]="z";
+				for(var i=0;i<=25;i++){
+					alphabet[(i+26)]=alphabet[i].toUpperCase();
+				}
+				for(var f=0;f<=9;f++){
+					alphabet[(f+52)]=f;
+				}
+				var captcha="";
+				for(var j=0;j<8;j++){
+					var n=Math.floor(Math.random()*100);
+					if(n>=alphabet.length){
+						n=Math.floor(n/2);
+					}
+					captcha+=alphabet[n];
+				}
+				frm.txtCaptcha.value=captcha;
+			}
+			
+			function refresh(frm){
+				captcha(frm);
+			}
+		</script>
+		<style type="text/css" >
+			#captcha{
+				width:200px;
+				height:35px;
+				font-size:20px;
+				color:#0000ff;
+				text-align:center;
+				font-style:italic;
+				background:url('captcha.jpg') repeat-x;
+			}
+		</style>
+	</head>
+	
+	<body onload="captcha(document.frmCaptcha)">
+		<form name="frmCaptcha" >
+			<input type="text" name="txtCaptcha" id="captcha" readonly="true" title="Captcha" /><img src="refresh.jpeg" onclick="refresh(document.frmCaptcha)" />
+		</form>
+	</body>
+</html>
